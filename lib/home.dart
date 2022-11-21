@@ -105,8 +105,10 @@ class _HomeState extends State<Home> {
                 ),
                 TextButton.icon(
                   onPressed: () {
+                    tasks.remove(task);
+                    saveTask();
                     setState(() {
-                      tasks.remove(task);
+
                     });
                   },
                   label: const Text('delete'),
