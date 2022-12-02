@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-//import 'package:to_do/add.dart';
-import 'task.dart';
+import 'package:to_do/task.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
@@ -16,36 +15,6 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     getTask();
-  }
-
-  void saveTask() async
-  {
-    final preferences = await SharedPreferences.getInstance();
-    for(int i=0; i<tasks.length; i++)
-      {
-        await preferences.setString('task$i', tasks[i].task);
-        await preferences.setString('time$i', tasks[i].time);
-        await preferences.setString('date$i', tasks[i].date);
-        await preferences.setString('status$i', tasks[i].status);
-        await preferences.setBool('value$i', tasks[i].value);
-      }
-    await preferences.setInt('i', tasks.length);
-  }
-
-  void getTask() async
-  {
-    final preferences = await SharedPreferences.getInstance();
-    int? i = preferences.getInt('i');
-    for(int j=0; j<i!; j++) {
-      var task =  preferences.getString('task$j');
-      var date = preferences.getString('date$j');
-      var time = preferences.getString('time$j');
-      var status = preferences.getString('status$j');
-      var value = preferences.getBool('value$j');
-      setState(() {
-        tasks.add(Task(task!, date!, time!, status!, value!));
-      });
-    }
   }
 
   Widget card(task)
@@ -90,18 +59,14 @@ class _HomeState extends State<Home> {
                           task.value = value!;
                           if(task.value == true) {
                             task.status = 'completed!!!';
-
                           } else {
                             task.status = 'pending......';
-                             
+
                           }
                         });
                       },
                     ),
-                    TextButton(
-                      onPressed: (){},
-                      child: Text(task.status,),
-                    ),
+                    Text(task.status)
                   ],
                 ),
                 TextButton.icon(
@@ -121,6 +86,36 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
+  }
+
+  void saveTask() async
+  {
+    final preferences = await SharedPreferences.getInstance();
+    for(int i=0; i<tasks.length; i++)
+      {
+        await preferences.setString('task$i', tasks[i].task);
+        await preferences.setString('time$i', tasks[i].time);
+        await preferences.setString('date$i', tasks[i].date);
+        await preferences.setString('status$i', tasks[i].status);
+        await preferences.setBool('value$i', tasks[i].value);
+      }
+    await preferences.setInt('i', tasks.length);
+  }
+
+  void getTask() async
+  {
+    final preferences = await SharedPreferences.getInstance();
+    int? i = preferences.getInt('i');
+    for(int j=0; j<i!; j++) {
+      var task =  preferences.getString('task$j');
+      var date = preferences.getString('date$j');
+      var time = preferences.getString('time$j');
+      var status = preferences.getString('status$j');
+      var value = preferences.getBool('value$j');
+      setState(() {
+        tasks.add(Task(task!, date!, time!, status!, value!));
+      });
+    }
   }
 
   @override
