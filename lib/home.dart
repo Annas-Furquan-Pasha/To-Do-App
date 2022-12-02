@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 //import 'package:to_do/add.dart';
 import 'task.dart';
@@ -91,8 +90,10 @@ class _HomeState extends State<Home> {
                           task.value = value!;
                           if(task.value == true) {
                             task.status = 'completed!!!';
+
                           } else {
                             task.status = 'pending......';
+                             
                           }
                         });
                       },
@@ -125,9 +126,10 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0.0,
-        title: const Text('To Do App',
+        title: const Text('To Do',
           style: TextStyle(
             fontSize: 30.0,
             //color: Colors.white54,
@@ -136,7 +138,30 @@ class _HomeState extends State<Home> {
         //backgroundColor: Colors.orange[400],
       ),
       body: SingleChildScrollView(
-        child: Column(
+        child: tasks.isEmpty
+            ? Center(
+            child : Column(
+                  children: <Widget>[
+                    SizedBox(height: MediaQuery.of(context).size.height*(1/4)),
+                    SizedBox(
+                      height: 100.0,
+                        width: 100.0,
+                        child:  Image.asset('assets/images/question.jpg',),
+                    ),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                     Text(
+                      'Its lonely here !!',
+                      style: TextStyle(
+                        color: Colors.grey[500],
+                        fontSize: 25.0,
+                      ),
+                    ),
+                  ],
+                ),
+      )
+         : Column(
           children: tasks.map((tak) => card(tak)).toList(),
         ),
       ),
