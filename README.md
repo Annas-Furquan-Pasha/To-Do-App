@@ -1,7 +1,5 @@
 # To Do App
 
-This is my first flutter app
-
 It is a to do app, which has a list of things the user wants to do.
 And the list is stored in the user device itself using Shared Preferences.
 
